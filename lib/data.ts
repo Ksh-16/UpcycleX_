@@ -1,0 +1,383 @@
+import type { Product, Maker, Category } from "./types";
+
+export const categories: Category[] = [
+  {
+    id: "1",
+    name: "Furniture",
+    slug: "furniture",
+    icon: "Sofa",
+    description: "Upcycled furniture pieces",
+    productCount: 24,
+  },
+  {
+    id: "2",
+    name: "Home Decor",
+    slug: "home-decor",
+    icon: "Lamp",
+    description: "Decorative items for your home",
+    productCount: 36,
+  },
+  {
+    id: "3",
+    name: "Fashion",
+    slug: "fashion",
+    icon: "Shirt",
+    description: "Sustainable fashion items",
+    productCount: 48,
+  },
+  {
+    id: "4",
+    name: "Art",
+    slug: "art",
+    icon: "Palette",
+    description: "Unique art pieces",
+    productCount: 18,
+  },
+  {
+    id: "5",
+    name: "Garden",
+    slug: "garden",
+    icon: "Flower2",
+    description: "Garden and outdoor items",
+    productCount: 15,
+  },
+  {
+    id: "6",
+    name: "Accessories",
+    slug: "accessories",
+    icon: "Watch",
+    description: "Bags, jewelry, and more",
+    productCount: 42,
+  },
+];
+
+export const products: Product[] = [
+  {
+    id: "1",
+    name: "Reclaimed Wood Coffee Table",
+    description: "Beautiful coffee table made from reclaimed barn wood. Each piece tells a story with its unique grain patterns and weathered character. Perfect for modern rustic interiors.",
+    price: 8500,
+    originalPrice: 12000,
+    category: "furniture",
+    material: "Reclaimed Wood",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=400&fit=crop",
+    sellerId: "seller1",
+    sellerName: "Rustic Revival",
+    rating: 4.8,
+    reviewCount: 24,
+    inStock: true,
+    featured: true,
+    createdAt: "2024-01-15",
+  },
+  {
+    id: "2",
+    name: "Upcycled Denim Tote Bag",
+    description: "Stylish tote bag crafted from upcycled denim jeans. Features multiple pockets and reinforced handles. A sustainable fashion statement.",
+    price: 1200,
+    originalPrice: 1800,
+    category: "fashion",
+    material: "Recycled Denim",
+    image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=400&fit=crop",
+    sellerId: "seller2",
+    sellerName: "Eco Threads",
+    rating: 4.6,
+    reviewCount: 38,
+    inStock: true,
+    featured: true,
+    createdAt: "2024-02-10",
+  },
+  {
+    id: "3",
+    name: "Tire Planter Set",
+    description: "Set of 3 colorful planters made from upcycled tires. Weather-resistant and perfect for outdoor gardens. Comes in vibrant colors.",
+    price: 2500,
+    category: "garden",
+    material: "Recycled Tires",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop",
+    sellerId: "seller3",
+    sellerName: "Green Gardens",
+    rating: 4.5,
+    reviewCount: 15,
+    inStock: true,
+    createdAt: "2024-02-20",
+  },
+  {
+    id: "4",
+    name: "Glass Bottle Wind Chime",
+    description: "Handcrafted wind chime made from recycled glass bottles. Creates beautiful melodic sounds. Each piece is unique.",
+    price: 950,
+    category: "home-decor",
+    material: "Recycled Glass",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop",
+    sellerId: "seller4",
+    sellerName: "Melody Crafts",
+    rating: 4.9,
+    reviewCount: 52,
+    inStock: true,
+    featured: true,
+    createdAt: "2024-01-28",
+  },
+  {
+    id: "5",
+    name: "Pallet Wood Bookshelf",
+    description: "Rustic bookshelf made entirely from reclaimed pallet wood. Industrial design with metal brackets. Perfect for any room.",
+    price: 6500,
+    originalPrice: 8500,
+    category: "furniture",
+    material: "Pallet Wood",
+    image: "https://images.unsplash.com/photo-1594620302200-9a762244a156?w=600&h=400&fit=crop",
+    sellerId: "seller1",
+    sellerName: "Rustic Revival",
+    rating: 4.7,
+    reviewCount: 19,
+    inStock: true,
+    createdAt: "2024-03-05",
+  },
+  {
+    id: "6",
+    name: "Circuit Board Wall Art",
+    description: "Stunning wall art created from recycled computer circuit boards. A perfect blend of technology and art for modern spaces.",
+    price: 3500,
+    category: "art",
+    material: "E-Waste",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
+    sellerId: "seller5",
+    sellerName: "Tech Art Studio",
+    rating: 4.8,
+    reviewCount: 28,
+    inStock: true,
+    featured: true,
+    createdAt: "2024-02-14",
+  },
+  {
+    id: "7",
+    name: "Bottle Cap Coasters",
+    description: "Set of 6 coasters made from colorful bottle caps embedded in resin. Conversation starters for any home.",
+    price: 650,
+    category: "home-decor",
+    material: "Bottle Caps",
+    image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=400&fit=crop",
+    sellerId: "seller4",
+    sellerName: "Melody Crafts",
+    rating: 4.4,
+    reviewCount: 33,
+    inStock: true,
+    createdAt: "2024-03-10",
+  },
+  {
+    id: "8",
+    name: "Sari Silk Scarf",
+    description: "Elegant scarf made from upcycled vintage sari fabric. Each piece features unique patterns and vibrant colors.",
+    price: 1800,
+    category: "fashion",
+    material: "Recycled Silk",
+    image: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600&h=400&fit=crop",
+    sellerId: "seller2",
+    sellerName: "Eco Threads",
+    rating: 4.7,
+    reviewCount: 45,
+    inStock: true,
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "9",
+    name: "Oil Drum Chair",
+    description: "Industrial-style chair crafted from upcycled oil drums. Comfortable cushioning with unique aesthetic appeal.",
+    price: 7500,
+    category: "furniture",
+    material: "Metal Drums",
+    image: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=600&h=400&fit=crop",
+    sellerId: "seller6",
+    sellerName: "Industrial Arts",
+    rating: 4.6,
+    reviewCount: 12,
+    inStock: true,
+    createdAt: "2024-02-28",
+  },
+  {
+    id: "10",
+    name: "Newspaper Basket",
+    description: "Woven basket made entirely from rolled newspaper. Sturdy and eco-friendly storage solution.",
+    price: 450,
+    category: "home-decor",
+    material: "Recycled Paper",
+    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop",
+    sellerId: "seller7",
+    sellerName: "Paper Dreams",
+    rating: 4.3,
+    reviewCount: 27,
+    inStock: true,
+    createdAt: "2024-03-15",
+  },
+  {
+    id: "11",
+    name: "Vinyl Record Clock",
+    description: "Unique wall clock made from vintage vinyl records. Laser-cut designs available in various themes.",
+    price: 1100,
+    category: "home-decor",
+    material: "Vinyl Records",
+    image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&h=400&fit=crop",
+    sellerId: "seller5",
+    sellerName: "Tech Art Studio",
+    rating: 4.8,
+    reviewCount: 41,
+    inStock: true,
+    createdAt: "2024-01-25",
+  },
+  {
+    id: "12",
+    name: "Bicycle Chain Bracelet",
+    description: "Edgy bracelet made from recycled bicycle chains. Adjustable size fits most wrists.",
+    price: 550,
+    category: "accessories",
+    material: "Bicycle Parts",
+    image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600&h=400&fit=crop",
+    sellerId: "seller6",
+    sellerName: "Industrial Arts",
+    rating: 4.5,
+    reviewCount: 36,
+    inStock: true,
+    createdAt: "2024-02-08",
+  },
+];
+
+export const makers: Maker[] = [
+  {
+    id: "1",
+    name: "Priya Sharma",
+    specialty: "Textile Upcycling",
+    location: "Mumbai, Maharashtra",
+    bio: "Transforming discarded fabrics into beautiful fashion pieces for over 8 years. Specializing in sari silk and denim upcycling.",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
+    rating: 4.9,
+    reviewCount: 156,
+    materialsUsed: ["Sari Silk", "Denim", "Cotton Scraps"],
+    productsCreated: 342,
+    yearsExperience: 8,
+    contactEmail: "priya@ecocraft.in",
+    contactPhone: "+91 98765 43210",
+  },
+  {
+    id: "2",
+    name: "Rajesh Kumar",
+    specialty: "Wood Reclamation",
+    location: "Jaipur, Rajasthan",
+    bio: "Master carpenter specializing in reclaimed wood furniture. Each piece is crafted with love and tells its own story.",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
+    rating: 4.8,
+    reviewCount: 98,
+    materialsUsed: ["Pallet Wood", "Barn Wood", "Teak"],
+    productsCreated: 187,
+    yearsExperience: 12,
+    contactEmail: "rajesh@woodcraft.in",
+  },
+  {
+    id: "3",
+    name: "Anita Desai",
+    specialty: "Glass Art",
+    location: "Pune, Maharashtra",
+    bio: "Creating stunning art pieces from recycled glass bottles and windows. Bringing color and light to sustainable living.",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop",
+    rating: 4.7,
+    reviewCount: 73,
+    materialsUsed: ["Glass Bottles", "Window Glass", "Sea Glass"],
+    productsCreated: 215,
+    yearsExperience: 6,
+    contactEmail: "anita@glassart.in",
+    contactPhone: "+91 87654 32109",
+  },
+  {
+    id: "4",
+    name: "Vikram Patel",
+    specialty: "Metal Upcycling",
+    location: "Ahmedabad, Gujarat",
+    bio: "Industrial designer turned eco-artist. Transforming scrap metal and e-waste into functional art and furniture.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+    rating: 4.9,
+    reviewCount: 112,
+    materialsUsed: ["Scrap Metal", "E-Waste", "Auto Parts"],
+    productsCreated: 156,
+    yearsExperience: 10,
+    contactEmail: "vikram@metalarts.in",
+  },
+  {
+    id: "5",
+    name: "Meera Nair",
+    specialty: "Paper Crafts",
+    location: "Kochi, Kerala",
+    bio: "Breathing new life into discarded paper through intricate weaving and quilling techniques.",
+    image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop",
+    rating: 4.6,
+    reviewCount: 64,
+    materialsUsed: ["Newspaper", "Cardboard", "Magazine Paper"],
+    productsCreated: 298,
+    yearsExperience: 5,
+    contactEmail: "meera@papercrafts.in",
+  },
+  {
+    id: "6",
+    name: "Arjun Singh",
+    specialty: "Tire & Rubber Art",
+    location: "Delhi, NCR",
+    bio: "Environmental activist and artist creating garden furniture and decor from discarded tires.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+    rating: 4.8,
+    reviewCount: 89,
+    materialsUsed: ["Car Tires", "Bicycle Tubes", "Rubber Sheets"],
+    productsCreated: 178,
+    yearsExperience: 7,
+    contactEmail: "arjun@tirearts.in",
+    contactPhone: "+91 76543 21098",
+  },
+];
+
+export const wasteTypes = [
+  "Plastic Bottles",
+  "Paper & Cardboard",
+  "Glass Containers",
+  "Metal Scrap",
+  "E-Waste",
+  "Textile Waste",
+  "Wood Scraps",
+  "Rubber & Tires",
+  "Construction Debris",
+  "Other",
+];
+
+export function getProductsByCategory(category: string): Product[] {
+  return products.filter((p) => p.category === category);
+}
+
+export function getFeaturedProducts(): Product[] {
+  return products.filter((p) => p.featured);
+}
+
+export function searchProducts(query: string): Product[] {
+  const lowercaseQuery = query.toLowerCase();
+  return products.filter(
+    (p) =>
+      p.name.toLowerCase().includes(lowercaseQuery) ||
+      p.description.toLowerCase().includes(lowercaseQuery) ||
+      p.material.toLowerCase().includes(lowercaseQuery) ||
+      p.category.toLowerCase().includes(lowercaseQuery)
+  );
+}
+
+export function getProductById(id: string): Product | undefined {
+  return products.find((p) => p.id === id);
+}
+
+export function getMakerById(id: string): Maker | undefined {
+  return makers.find((m) => m.id === id);
+}
+
+export function searchMakers(query: string): Maker[] {
+  const lowercaseQuery = query.toLowerCase();
+  return makers.filter(
+    (m) =>
+      m.name.toLowerCase().includes(lowercaseQuery) ||
+      m.specialty.toLowerCase().includes(lowercaseQuery) ||
+      m.location.toLowerCase().includes(lowercaseQuery) ||
+      m.materialsUsed.some((mat) => mat.toLowerCase().includes(lowercaseQuery))
+  );
+}
