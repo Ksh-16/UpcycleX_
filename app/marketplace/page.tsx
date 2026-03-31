@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Search, SlidersHorizontal, X } from "lucide-react";
+import { Search, SlidersHorizontal, X, Loader2 } from "lucide-react";
 import { ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
 import { products, categories } from "@/lib/data";
@@ -23,7 +23,7 @@ const sortOptions = [
   { label: "Rating", value: "rating" },
 ];
 
-export default function MarketplacePage() {
+function MarketplaceContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
 
@@ -90,7 +90,7 @@ export default function MarketplacePage() {
     searchQuery || selectedCategory !== "all" || selectedPriceRange !== 0;
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       {/* Header */}
       <div className="border-b bg-card px-4 py-8">
         <div className="mx-auto max-w-7xl">
@@ -276,6 +276,27 @@ export default function MarketplacePage() {
           </div>
         </div>
       </div>
+    </>
+  );
+}
+
+function MarketplaceLoading() {
+  return (
+    <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <p className="text-muted-foreground">Loading marketplace...</p>
+      </div>
+    </div>
+  );
+}
+
+export default function MarketplacePage() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Suspense fallback={<MarketplaceLoading />}>
+        <MarketplaceContent />
+      </Suspense>
     </div>
   );
 }
