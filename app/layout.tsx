@@ -1,19 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
-  title: "UpcycleX - Transform Waste Into Wonder",
-  description:
-    "Join the circular economy revolution. Connect waste generators with creative makers and shop unique upcycled products.",
-  keywords: ["upcycling", "sustainable", "eco-friendly", "marketplace", "recycling"],
+  title: "UpcycleX - Transform Waste Into Worth",
+  description: "Turn household waste into valuable products through our community of skilled tailors and makers.",
 };
 
 export const viewport: Viewport = {
@@ -29,12 +19,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+      <body>
+        {children}
       </body>
     </html>
   );
