@@ -331,9 +331,9 @@ export default function SellerDashboardPage() {
                         className="flex h-11 w-full rounded-lg border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       >
                         <option value="">Select...</option>
-                        {categories.map((cat) => (
-                          <option key={cat.id} value={cat.slug}>
-                            {cat.name}
+                        {categories.filter(cat => cat !== "All Categories").map((cat) => (
+                          <option key={cat} value={cat}>
+                            {cat}
                           </option>
                         ))}
                       </select>
