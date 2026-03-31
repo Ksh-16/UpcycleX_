@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>How to Start | UpCycleX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CDN (Optional — remove if you're using local build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .step-card{
+      background: rgba(255,255,255,0.75);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .step-card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+
+<body class="bg-green-100">
+
+<!-- 🔹 HEADER (Your Provided Code) -->
+<header class="text-gray-700 body-font"
+            style="
+background: linear-gradient(145deg,#e3fd64,#d48a55,#3e0b90);
+box-shadow: inset 0 6px 18px rgba(71, 30, 30, 0.6),
+            inset 0 -6px 18px rgba(253, 24, 24, 0.08);
+backdrop-filter: blur(10px);
+">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a href="index.htm" class="flex title-font font-medium items-center text-gray-800 mb-4 md:mb-0">
+  <img src="images/recycleLogo.png" alt="UpCycleX" 
+       class="w-20 h-20 rounded-full p-2 object-contain">
+  <span class="ml-3 text-xl">UpCycleX</span>
+</a>
+    <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+      <a href="index.html" class="mr-6 hover:text-emerald-600 transition-colors font-medium">Home</a>
+      <a href="upload.html"class="mr-5 hover:text-gray-800">Upload</a>
+      <a href="connect.html" class="mr-5 hover:text-gray-800">Connect</a>
+      <a href="marketplace.html" class="mr-5 hover:text-gray-800">Market Place</a>
+      
+      <a href="policy.html" class="mr-5 hover:text-gray-800">Our Policies</a>
+      <a href="upload-admin.html" class="mr-5 hover:text-gray-800">Sale market</a>
+      <a href="cart.html" class="mr-5 hover:text-gray-800">Cart</a>
+    </nav>
+    <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-500 rounded text-base mt-4 md:mt-0"  onclick="window.location.href='loginup.html'">Sign In/ Sign Up
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- 🔹 HERO SECTION -->
+<section class="text-gray-700 body-font">
+  <div class="container mx-auto px-6 py-16">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold text-gray-900">How to Start with UpCycleX</h1>
+      <p class="mt-3 text-lg text-gray-600">
+        Turn waste into value in just three simple steps.
+      </p>
+    </div>
+
+    <!-- 🔹 Steps Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <div class="step-card p-6">
+        <h2 class="text-xl font-semibold mb-2">1️⃣ Upload Waste Item</h2>
+        <p class="text-gray-700 mb-4">
+          Upload a picture or details of your waste material such as plastic,
+          fabric, metal, or wood.
+        </p>
+        <button onclick="window.location.href='upload.html'"
+          class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+          Go to Upload Page
+        </button>
+      </div>
+
+      <div class="step-card p-6">
+        <h2 class="text-xl font-semibold mb-2">2️⃣ Connect With Makers</h2>
+        <p class="text-gray-700 mb-4">
+          Our platform matches you with skilled tailors, artists,
+          designers & recyclers.
+        </p>
+        <button onclick="window.location.href='connect.html'"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
+          Find Creators
+        </button>
+      </div>
+
+      <div class="step-card p-6">
+        <h2 class="text-xl font-semibold mb-2">3️⃣ Sell or Reuse</h2>
+        <p class="text-gray-700 mb-4">
+          Convert your upcycled product into income — or reuse it sustainably.
+        </p>
+        <button onclick="window.location.href='marketplace.html'"
+          class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg">
+          Visit Marketplace
+        </button>
+      </div>
+
+    </div>
+
+    
+    <div class="text-center mt-12">
+      <button onclick="window.location.href='upload.html'"
+        class="px-6 py-3 bg-black text-white rounded-xl hover:bg-gray-800">
+        Start Upcycling Now
+      </button>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

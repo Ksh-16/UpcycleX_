@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UpCycleX | Connect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #111827; }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(145deg,#e3fd64,#d48a55,#3e0b90);
+      border-radius: 999px;
+    }
+
+    /* Glass Effect */
+    .glass-card {
+      background: rgba(17, 24, 39, 0.78);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(16px);
+    }
+
+    .star {
+      color: #facc15;
+      text-shadow: 0 0 10px rgba(250, 204, 21, 0.8);
+    }
+
+    /* Category pills */
+    .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(156, 163, 175, 0.6);
+      background: rgba(17, 24, 39, 0.9);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+    }
+
+    /* UPDATED: Background to the uploaded image */
+    body {
+      background: url("images/background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: #f9fafb;
+      min-height: 100vh;
+      background-color: #020617; 
+    }
+
+    /* Hero background transparent to show the main image */
+    .hero-bg {
+      background-image: linear-gradient(135deg, rgba(227, 253, 100, 0.05), rgba(62, 11, 144, 0.2));
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .overlay-gradient {
+      background: radial-gradient(circle at top left, rgba(227, 253, 100, 0.15), transparent 60%),
+                  radial-gradient(circle at bottom right, rgba(62, 11, 144, 0.3), transparent 60%);
+    }
+  </style>
+</head>
+<body class="text-gray-100">
+
+  <header class="text-gray-700 body-font"
+          style="
+            background: linear-gradient(145deg,#e3fd64,#d48a55,#3e0b90);
+            box-shadow: inset 0 6px 18px rgba(71, 30, 30, 0.6),
+                        inset 0 -6px 18px rgba(253, 24, 24, 0.08);
+            backdrop-filter: blur(10px);
+          ">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a href="index.html" class="flex title-font font-medium items-center text-gray-800 mb-4 md:mb-0">
+        <img src="images/recycleLogo.png" alt="UpCycleX"
+             class="w-20 h-20 rounded-full p-2 object-contain">
+        <span class="ml-3 text-xl">UpCycleX</span>
+      </a>
+      <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+        <a href="index.html" class="mr-6 hover:text-emerald-600 transition-colors font-medium">Home</a>
+        <a href="upload.html" class="mr-5 hover:text-gray-800">Upload</a>
+        <a href="connect.html" class="mr-5 hover:text-gray-800 font-semibold underline">Connect</a>
+        <a href="marketplace.html" class="mr-5 hover:text-gray-800">Market Place</a>
+    
+        <a href="policy.html" class="mr-5 hover:text-gray-800">Our Policies</a>
+        <a href="upload-admin.html" class="mr-5 hover:text-gray-800">Sale market</a>
+      <a href="cart.html" class="mr-5 hover:text-gray-800">Cart</a>
+      </nav>
+      <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-500 rounded text-base mt-4 md:mt-0"  onclick="window.location.href='loginup.html'">Sign In/ Sign Up
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </button>
+    </div>
+  </header>
+
+  <main class="hero-bg overlay-gradient">
+    <section class="max-w-6xl mx-auto px-4 py-10 md:py-16">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 class="text-blue-700 md:text-4xl lg:text-5xl font-bold mb-4">
+            Connect with <span class="text-green-600">Upcyclers</span> & Transform Your Waste.
+          </h1>
+          <p class="text-black mb-6 text-sm md:text-base">
+            List your scrap fabrics, plastics, paper or e‑waste and match with trusted manufacturers,
+            tailors and makers who turn them into useful, sellable products.
+          </p>
+
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="glass-card px-4 py-3 flex-1 min-w-[140px] text-center">
+              <p class="text-xs uppercase tracking-wide text-gray-400">Verified partners</p>
+              <p class="text-xl font-semibold text-lime-300">120+</p>
+            </div>
+            <div class="glass-card px-4 py-3 flex-1 min-w-[140px] text-center">
+              <p class="text-xs uppercase tracking-wide text-gray-400">Avg rating</p>
+              <p class="text-xl font-semibold text-yellow-300">4.7★</p>
+            </div>
+            <div class="glass-card px-4 py-3 flex-1 min-w-[140px] text-center">
+              <p class="text-xs uppercase tracking-wide text-gray-400">Waste diverted</p>
+              <p class="text-xl font-semibold text-sky-300">18+ Tons</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-4">
+            <a href="#connect-area"
+               class="inline-flex items-center px-5 py-3 rounded-full text-sm md:text-base font-medium
+                      bg-lime-300 text-gray-900 shadow-lg shadow-lime-500/40 hover:bg-lime-200 transition">
+              Find a Manufacturer
+            </a>
+            <a href="upload.html"
+               class="inline-flex items-center px-5 py-3 rounded-full text-sm md:text-base font-medium
+                      border border-gray-500/70 text-black hover:bg-gray-900/40 transition">
+              Upload My Waste
+            </a>
+          </div>
+        </div>
+
+        <div class="relative h-72 md:h-80 lg:h-96">
+          <div class="absolute inset-0 rounded-3xl overflow-hidden glass-card">
+            <img src="images/workshop.png" alt="Upcycling workshop"
+                 class="w-full h-full object-cover opacity-90">
+          </div>
+          <div class="absolute -bottom-6 -left-4 w-32 h-32 md:w-40 md:h-40 glass-card overflow-hidden border border-lime-300/50">
+            <img src="images/textile.png" alt="Textile scraps"
+                 class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -top-6 -right-4 w-28 h-28 md:w-32 md:h-32 glass-card overflow-hidden border border-sky-400/50">
+            <img src="images/recycled.png" alt="Recycled products"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="connect-area" class="max-w-6xl mx-auto px-4 pb-14">
+      <div class="glass-card p-4 md:p-5 mb-8">
+        <div class="flex flex-col lg:flex-row gap-4 lg:items-center">
+          <div class="flex-1">
+            <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">
+              Search by name or service
+            </label>
+            <div class="flex items-center gap-2 bg-gray-900/60 rounded-full px-3 py-2 border border-gray-600/70">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="7" stroke-width="2" />
+                <line x1="16.65" y1="16.65" x2="21" y2="21" stroke-width="2" />
+              </svg>
+              <input type="text" placeholder="e.g. denim upcycling, bag maker"
+                     class="bg-transparent flex-1 outline-none text-sm text-gray-100 placeholder-gray-500">
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 lg:w-[45%]">
+            <button class="pill px-3 py-1.5 text-xs text-gray-100 hover:bg-gray-800/80 transition">All</button>
+            <button class="pill px-3 py-1.5 text-xs text-gray-100 hover:bg-gray-800/80 transition">Textile Upcycler</button>
+            <button class="pill px-3 py-1.5 text-xs text-gray-100 hover:bg-gray-800/80 transition">Tailor & Stitching</button>
+            <button class="pill px-3 py-1.5 text-xs text-gray-100 hover:bg-gray-800/80 transition">Plastic / Wood</button>
+            <button class="pill px-3 py-1.5 text-xs text-gray-100 hover:bg-gray-800/80 transition">Metal / E‑waste</button>
+          </div>
+
+          <div class="w-full lg:w-auto">
+            <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">Sort by</label>
+            <select class="bg-gray-900/70 border border-gray-600/80 text-sm rounded-full px-4 py-2 w-full outline-none">
+              <option>Top rated</option>
+              <option>Most reviewed</option>
+              <option>Nearest to me</option>
+              <option>Newly added</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <article class="glass-card p-4 flex flex-col">
+          <div class="flex items-start gap-3 mb-3">
+            <img src="images/eco.png" alt="EcoThread Studios" class="w-14 h-14 rounded-full object-cover border border-lime-300/60">
+            <div>
+              <h2 class="font-semibold text-lg">EcoThread Studios</h2>
+              <p class="text-xs text-gray-400">Textile Upcycler • Small‑batch fashion</p>
+            </div>
+          </div>
+          <p class="text-xs text-gray-300 mb-3">Converts old clothes and factory offcuts into premium tote bags, laptop sleeves and streetwear‑style apparel.</p>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-1 text-xs">
+              <span class="star text-sm">★</span><span class="font-semibold">4.9</span><span class="text-gray-400">(86 reviews)</span>
+            </div>
+            <span class="text-[11px] px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/40">Textile Upcycler</span>
+          </div>
+          <ul class="text-[11px] text-gray-300 space-y-1 mb-4">
+            <li>• Ideal waste: denim, cotton, canvas, deadstock rolls.</li>
+            <li>• Min. quantity: 5 kg per design batch.</li>
+            <li>• Lead time: 7‑15 days.</li>
+          </ul>
+          <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-700/60">
+            <div class="text-[11px] text-gray-300">
+              <p class="font-semibold text-gray-100">Contact</p>
+              <p>+91‑98765 43210</p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <button class="px-3 py-1.5 text-[11px] rounded-full bg-lime-300 text-gray-900 font-medium hover:bg-lime-200">Call / WhatsApp</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="glass-card p-4 flex flex-col">
+          <div class="flex items-start gap-3 mb-3">
+            <img src="images/stich.png" alt="GreenStitch Tailors" class="w-14 h-14 rounded-full object-cover border border-sky-300/70">
+            <div>
+              <h2 class="font-semibold text-lg">GreenStitch Tailors</h2>
+              <p class="text-xs text-gray-400">Tailor • Repair • Custom Upcycling</p>
+            </div>
+          </div>
+          <p class="text-xs text-gray-300 mb-3">Specialised in repairing garments, turning sarees into dresses and transforming uniforms.</p>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-1 text-xs">
+              <span class="star text-sm">★</span><span class="font-semibold">4.7</span><span class="text-gray-400">(54 reviews)</span>
+            </div>
+            <span class="text-[11px] px-2 py-1 rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/40">Tailor & Stitching</span>
+          </div>
+          <ul class="text-[11px] text-gray-300 space-y-1 mb-4">
+            <li>• Ideal waste: sarees, shirts, trousers, uniforms.</li>
+            <li>• Min. quantity: single piece accepted.</li>
+            <li>• Lead time: 3‑10 days.</li>
+          </ul>
+          <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-700/60">
+            <div class="text-[11px] text-gray-300">
+              <p class="font-semibold text-gray-100">Contact</p>
+              <p>+91‑91234 56780</p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <button class="px-3 py-1.5 text-[11px] rounded-full bg-lime-300 text-gray-900 font-medium hover:bg-lime-200">Call / WhatsApp</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="glass-card p-4 flex flex-col">
+          <div class="flex items-start gap-3 mb-3">
+            <img src="images/recraft.png" alt="ReCraft Plastix" class="w-14 h-14 rounded-full object-cover border border-amber-300/70">
+            <div>
+              <h2 class="font-semibold text-lg">ReCraft Plastix</h2>
+              <p class="text-xs text-gray-400">Plastic • Wood • Panel products</p>
+            </div>
+          </div>
+          <p class="text-xs text-gray-300 mb-3">Turns plastic wrappers, bottles and mixed waste into solid boards and furniture components.</p>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-1 text-xs">
+              <span class="star text-sm">★</span><span class="font-semibold">4.6</span><span class="text-gray-400">(39 reviews)</span>
+            </div>
+            <span class="text-[11px] px-2 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40">Plastic / Wood</span>
+          </div>
+          <ul class="text-[11px] text-gray-300 space-y-1 mb-4">
+            <li>• Ideal waste: PET bottles, clean packaging.</li>
+            <li>• Min. quantity: 20 kg.</li>
+            <li>• Lead time: 10‑20 days.</li>
+          </ul>
+          <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-700/60">
+            <div class="text-[11px] text-gray-300">
+              <p class="font-semibold text-gray-100">Contact</p>
+              <p>+91‑90011 22334</p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <button class="px-3 py-1.5 text-[11px] rounded-full bg-lime-300 text-gray-900 font-medium hover:bg-lime-200">Call / WhatsApp</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="mt-10 text-xs text-gray-400 flex flex-wrap gap-4 items-center">
+        <div class="flex items-center gap-1"><span class="star">★</span><span>4.5 – 5.0: Highly trusted</span></div>
+        <div class="flex items-center gap-1"><span class="star">★</span><span>4.0 – 4.4: Reliable partner</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-gray-800 bg-gray-950/90">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between text-xs text-gray-400">
+      <p>© 2026 UpCycleX. Turning waste into opportunity.</p>
+      <p>Need help? Mail at support@upcyclex.com</p>
+    </div>
+  </footer>
+</body>
+</html>

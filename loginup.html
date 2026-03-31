@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign In / Sign Up | UpCycleX</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background:
+      radial-gradient(circle at top left, rgba(186, 230, 253, 0.55), transparent 26%),
+      radial-gradient(circle at top right, rgba(220, 252, 231, 0.55), transparent 24%),
+      radial-gradient(circle at bottom left, rgba(233, 213, 255, 0.45), transparent 28%),
+      linear-gradient(135deg, #fdfefe 0%, #f4f8ff 45%, #f7fcfb 100%);
+  }
+
+  .glass-card {
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    box-shadow:
+      0 24px 70px rgba(15, 23, 42, 0.12),
+      0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+  }
+
+  .active-tab {
+    background: linear-gradient(120deg, #7cff88, #64ffd5);
+    color: #052e16;
+    box-shadow: 0 10px 24px rgba(100, 255, 181, 0.28);
+  }
+
+  .input-box {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    color: #0f172a;
+    transition: all 0.2s ease;
+  }
+
+  .input-box:focus {
+    outline: none;
+    border-color: rgba(34, 197, 94, 0.65);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+  }
+
+  .neon-btn {
+    background: linear-gradient(120deg, #9cff6c, #64ffb3);
+    box-shadow: 0 12px 30px rgba(130, 255, 171, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .neon-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 34px rgba(130, 255, 171, 0.34);
+  }
+
+  .feature-chip {
+    background: rgba(255,255,255,0.78);
+    border: 1px solid rgba(148,163,184,0.18);
+    box-shadow: 0 8px 24px rgba(15,23,42,0.06);
+  }
+
+  .social-btn {
+    background: rgba(255,255,255,0.82);
+    border: 1px solid rgba(148,163,184,0.22);
+    transition: all 0.2s ease;
+  }
+
+  .social-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(15,23,42,0.08);
+  }
+</style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center px-4 text-slate-800">
+
+<!-- Page shell -->
+<div class="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
+
+  <!-- Left side: branding -->
+  <div class="hidden lg:block">
+    <div class="max-w-xl mx-auto">
+      <div class="inline-flex items-center px-4 py-2 rounded-full feature-chip text-sm text-slate-600 mb-6">
+        Trusted marketplace access • Fast sign in • Secure signup
+      </div>
+
+      <h1 class="text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+        Join the
+        <span class="text-emerald-600">UpCycleX</span>
+        community.
+      </h1>
+
+      <p class="mt-5 text-lg text-slate-600 leading-relaxed max-w-lg">
+        Sign in to continue shopping, saving favourites, tracking orders, and connecting with sustainable creators.
+      </p>
+
+      <div class="mt-8 grid grid-cols-2 gap-4 max-w-md">
+        <div class="feature-chip rounded-2xl p-4">
+          <p class="text-sm text-slate-500">Secure Login</p>
+          <p class="text-xl font-bold text-slate-900">2FA Ready</p>
+        </div>
+        <div class="feature-chip rounded-2xl p-4">
+          <p class="text-sm text-slate-500">Quick Access</p>
+          <p class="text-xl font-bold text-slate-900">One Click</p>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <span class="feature-chip px-4 py-2 rounded-full text-sm text-slate-600">Wishlist sync</span>
+        <span class="feature-chip px-4 py-2 rounded-full text-sm text-slate-600">Order tracking</span>
+        <span class="feature-chip px-4 py-2 rounded-full text-sm text-slate-600">Rewards</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Card -->
+  <div class="glass-card rounded-3xl p-6 sm:p-8 w-full max-w-md mx-auto">
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center shadow-lg shadow-emerald-100">
+        <span class="text-white text-2xl font-bold">U</span>
+      </div>
+      <h2 class="text-3xl font-bold text-slate-900 mt-4">Welcome back</h2>
+      <p class="text-slate-500 mt-2 text-sm">Access your UpCycleX account or create a new one.</p>
+    </div>
+
+    <!-- Toggle Buttons -->
+    <div class="grid grid-cols-2 mb-6 rounded-2xl overflow-hidden bg-slate-100 p-1">
+      <button id="signinTab"
+        class="py-2 rounded-xl text-sm font-semibold tracking-wide transition active-tab">
+        Sign In
+      </button>
+      <button id="signupTab"
+        class="py-2 rounded-xl text-sm font-semibold tracking-wide transition text-slate-600 hover:bg-white/80">
+        Sign Up
+      </button>
+    </div>
+
+    <!-- Social Login -->
+    <div class="grid grid-cols-2 gap-3 mb-6">
+      <button class="social-btn py-3 rounded-xl flex items-center justify-center gap-2 text-sm font-medium text-slate-700">
+        <span>G</span> Google
+      </button>
+      <button class="social-btn py-3 rounded-xl flex items-center justify-center gap-2 text-sm font-medium text-slate-700">
+        <span></span> Apple
+      </button>
+    </div>
+
+    <div class="flex items-center gap-3 mb-6">
+      <div class="h-px bg-slate-200 flex-1"></div>
+      <span class="text-xs text-slate-400">or continue with email</span>
+      <div class="h-px bg-slate-200 flex-1"></div>
+    </div>
+
+    <!-- Sign In Form -->
+    <form id="signinForm" class="space-y-4">
+      <div>
+        <label class="text-sm font-medium text-slate-700">Email</label>
+        <input type="email" class="input-box w-full mt-1 p-3 rounded-lg" placeholder="Enter your email" required>
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-slate-700">Password</label>
+        <div class="relative">
+          <input type="password" id="signinPass"
+            class="input-box w-full mt-1 p-3 rounded-lg pr-10"
+            placeholder="Enter password" required>
+          <span onclick="togglePass('signinPass')"
+            class="absolute right-3 top-4 cursor-pointer opacity-70 select-none">👁️</span>
+        </div>
+      </div>
+
+      <div class="flex justify-between text-xs text-slate-500">
+        <label class="flex items-center gap-2"><input type="checkbox" class="accent-emerald-500"> Remember me</label>
+        <a href="#" class="hover:underline text-emerald-700">Forgot password?</a>
+      </div>
+
+      <button class="neon-btn w-full py-3 rounded-xl font-semibold text-black">
+        Sign In
+      </button>
+    </form>
+
+    <!-- Sign Up Form -->
+    <form id="signupForm" class="space-y-4 hidden">
+      <div>
+        <label class="text-sm font-medium text-slate-700">Full Name</label>
+        <input type="text" class="input-box w-full mt-1 p-3 rounded-lg"
+          placeholder="Enter your name" required>
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-slate-700">Email</label>
+        <input type="email" class="input-box w-full mt-1 p-3 rounded-lg"
+          placeholder="Enter your email" required>
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-slate-700">Create Password</label>
+        <div class="relative">
+          <input type="password" id="signupPass"
+            class="input-box w-full mt-1 p-3 rounded-lg pr-10"
+            placeholder="Create password" required oninput="updateStrength(this.value)">
+          <span onclick="togglePass('signupPass')"
+            class="absolute right-3 top-4 cursor-pointer opacity-70 select-none">👁️</span>
+        </div>
+        <div class="mt-2">
+          <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+            <div id="strengthBar" class="h-full w-0 bg-red-400 transition-all"></div>
+          </div>
+          <p id="strengthText" class="text-xs text-slate-500 mt-1">Password strength: weak</p>
+        </div>
+      </div>
+
+      <label class="flex items-start gap-2 text-xs text-slate-600">
+        <input type="checkbox" class="mt-0.5 accent-emerald-500" required>
+        <span>I agree to the UpCycleX Terms, Privacy Policy, and Community Guidelines.</span>
+      </label>
+
+      <button class="neon-btn w-full py-3 rounded-xl font-semibold text-black">
+        Create Account
+      </button>
+    </form>
+
+    <p class="text-center mt-6 text-xs text-slate-500">
+      By continuing, you agree to UpCycleX Terms & Privacy Policy.
+    </p>
+  </div>
+</div>
+
+<!-- Script -->
+<script>
+const signinTab = document.getElementById("signinTab");
+const signupTab = document.getElementById("signupTab");
+const signinForm = document.getElementById("signinForm");
+const signupForm = document.getElementById("signupForm");
+
+signinTab.onclick = () => {
+  signinTab.classList.add("active-tab");
+  signinTab.classList.remove("text-slate-600");
+  signupTab.classList.remove("active-tab");
+  signupTab.classList.add("text-slate-600");
+  signinForm.classList.remove("hidden");
+  signupForm.classList.add("hidden");
+};
+
+signupTab.onclick = () => {
+  signupTab.classList.add("active-tab");
+  signupTab.classList.remove("text-slate-600");
+  signinTab.classList.remove("active-tab");
+  signinTab.classList.add("text-slate-600");
+  signupForm.classList.remove("hidden");
+  signinForm.classList.add("hidden");
+};
+
+function togglePass(id){
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+
+function updateStrength(val){
+  const bar = document.getElementById("strengthBar");
+  const text = document.getElementById("strengthText");
+  let score = 0;
+  if(val.length >= 8) score++;
+  if(/[A-Z]/.test(val)) score++;
+  if(/[0-9]/.test(val)) score++;
+  if(/[^A-Za-z0-9]/.test(val)) score++;
+
+  if(score <= 1){
+    bar.className = "h-full w-1/4 bg-red-400 transition-all";
+    text.textContent = "Password strength: weak";
+  } else if(score === 2 || score === 3){
+    bar.className = "h-full w-2/4 bg-yellow-400 transition-all";
+    text.textContent = "Password strength: medium";
+  } else {
+    bar.className = "h-full w-full bg-emerald-400 transition-all";
+    text.textContent = "Password strength: strong";
+  }
+}
+</script>
+
+</body>
+</html>

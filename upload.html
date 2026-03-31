@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Waste — UpCycleX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(186, 230, 253, 0.42), transparent 28%),
+        radial-gradient(circle at top right, rgba(220, 252, 231, 0.38), transparent 24%),
+        linear-gradient(135deg, #fdfefe 0%, #f4f8ff 48%, #f7fcfb 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .preview-img {
+      max-height: 420px;
+      object-fit: cover;
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    .glass-card {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    .soft-chip {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 10px 20px rgba(15,23,42,0.05);
+    }
+
+    .drop-zone {
+      transition: all 0.2s ease;
+    }
+
+    .drop-zone:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.06);
+    }
+  </style>
+</head>
+
+<body class="text-slate-700">
+
+  <header class="text-gray-700 body-font border-b border-white/70 bg-white/55 backdrop-blur-md sticky top-0 z-50">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      
+      <a href="index.html" class="flex title-font font-medium items-center text-gray-800 mb-4 md:mb-0 group">
+        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center group-hover:shadow-md transition-all p-2 shadow-sm border border-slate-100">
+           <img src="images/recycleLogo.png" class="w-full h-full object-contain" alt="Logo">
+        </div>
+        <span class="ml-3 text-2xl font-bold tracking-tight text-slate-800">UpCycle<span class="text-emerald-600">X</span></span>
+      </a>
+      
+      <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+        <a href="index.html" class="mr-6 hover:text-emerald-600 transition-colors font-medium">Home</a>
+        <a href="upload.html" class="mr-6 text-emerald-600 font-bold border-b-2 border-emerald-500 pb-1">Upload</a>
+        <a href="connect.html" class="mr-6 hover:text-emerald-600 transition-colors font-medium">Connect</a>
+        <a href="marketplace.html" class="mr-6 hover:text-emerald-600 transition-colors font-medium">Market Place</a>
+
+        <a href="upload-admin.html" class="mr-6 hover:text-emerald-600 transition-colors font-medium">Sale Market</a>
+        <a href="cart.html" class="hover:text-emerald-600 transition-colors font-medium">Cart</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-500 rounded text-base mt-4 md:mt-0"  onclick="window.location.href='loginup.html'">Sign In/ Sign Up
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </button>
+      </div>
+
+    </div>
+  </header>
+
+  <section class="py-10 md:py-14">
+    <div class="container mx-auto px-4 max-w-6xl">
+
+      <div class="text-center mb-10">
+        <h1 class="text-4xl md:text-6xl font-bold mb-3 text-slate-900">
+          Upload Your <span class="text-emerald-600">Waste</span>
+        </h1>
+        <p class="text-slate-600 text-lg md:text-2xl max-w-3xl mx-auto">
+          Upload an image — we will help you convert waste into worth.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+        <div class="glass-card p-6 md:p-8 rounded-3xl">
+
+          <div class="grid sm:grid-cols-3 gap-3 mb-6">
+            <div class="soft-chip rounded-2xl p-4 text-center border-emerald-100 bg-emerald-50/30">
+              <p class="text-xs uppercase tracking-wide text-emerald-600 font-bold">Step 1</p>
+              <p class="font-semibold text-slate-900">Upload photo</p>
+            </div>
+            <div class="soft-chip rounded-2xl p-4 text-center">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Step 2</p>
+              <p class="font-semibold text-slate-900">Add details</p>
+            </div>
+            <div class="soft-chip rounded-2xl p-4 text-center">
+              <p class="text-xs uppercase tracking-wide text-slate-500">Step 3</p>
+              <p class="font-semibold text-slate-900">Find maker</p>
+            </div>
+          </div>
+
+          <div id="uploadBox">
+            <div
+              id="dropZone"
+              class="drop-zone border-2 border-dashed border-emerald-200 rounded-3xl p-8 md:p-10 text-center bg-white/60 hover:bg-white/75 cursor-pointer"
+            >
+              <div class="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-5 text-xl">
+                📤
+              </div>
+
+              <h3 class="text-xl font-semibold mb-2 text-slate-900">Drag & Drop or Upload Image</h3>
+              <p class="text-slate-500 mb-6">
+                Choose a file from your device or click to take a photo.
+              </p>
+
+              <div class="flex flex-col sm:flex-row justify-center gap-3">
+                <label class="cursor-pointer bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-sm transition-all">
+                  Choose File
+                  <input type="file" id="fileInput" accept="image/*" hidden>
+                </label>
+
+                <label class="cursor-pointer border border-slate-300 px-5 py-3 rounded-xl bg-white/80 hover:bg-white text-slate-700 transition-all">
+                  Take Photo
+                  <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 grid md:grid-cols-3 gap-3">
+            <button class="soft-chip rounded-2xl px-4 py-3 text-sm hover:bg-white transition font-medium">Auto-category</button>
+            <button class="soft-chip rounded-2xl px-4 py-3 text-sm hover:bg-white transition font-medium">Estimate material</button>
+            <button class="soft-chip rounded-2xl px-4 py-3 text-sm hover:bg-white transition font-medium">Eco score</button>
+          </div>
+
+          <div id="previewBox" class="hidden mt-6">
+            <img id="previewImg" class="preview-img mb-4 shadow-sm" alt="Preview">
+            <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl mb-4">
+              <strong class="text-emerald-800">Image Loaded ✔</strong>
+              <p class="text-sm text-slate-600 mt-1">
+                You can now add waste type, quantity, and short notes before matching with a maker.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Waste Type</label>
+                <select class="w-full rounded-xl border border-slate-300 bg-white/80 p-3 outline-none focus:ring-4 focus:ring-emerald-100 transition-all">
+                  <option>Choose type</option>
+                  <option>Fabric / Textile</option>
+                  <option>Plastic</option>
+                  <option>Paper / Cardboard</option>
+                  <option>Wood</option>
+                  <option>Metal</option>
+                  <option>E-waste</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Quantity</label>
+                <input type="text" placeholder="e.g. 5 kg / 20 pcs"
+                  class="w-full rounded-xl border border-slate-300 bg-white/80 p-3 outline-none focus:ring-4 focus:ring-emerald-100 transition-all">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-slate-700 mb-1">Short Description</label>
+              <textarea rows="3" placeholder="Describe the waste condition, color, size, etc..."
+                class="w-full rounded-2xl border border-slate-300 bg-white/80 p-3 outline-none focus:ring-4 focus:ring-emerald-100 transition-all"></textarea>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <button id="resetBtn" class="border border-slate-300 bg-white/80 hover:bg-white px-4 py-2 rounded-xl transition-all">
+                Upload Different
+              </button>
+              <button class="border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-4 py-2 rounded-xl transition-all">
+                Save Draft
+              </button>
+              <a href="connect.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl shadow-md transition-all">
+                Find Maker →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="glass-card rounded-3xl p-6 md:p-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-4">Why upload here?</h2>
+          <div class="space-y-4">
+            <div class="soft-chip rounded-2xl p-4">
+              <p class="font-semibold text-slate-900">Smart matching</p>
+              <p class="text-sm text-slate-600">Connect with makers based on your waste type and quantity.</p>
+            </div>
+            <div class="soft-chip rounded-2xl p-4">
+              <p class="font-semibold text-slate-900">Faster response</p>
+              <p class="text-sm text-slate-600">Upload images and send details in one clean flow.</p>
+            </div>
+            <div class="soft-chip rounded-2xl p-4">
+              <p class="font-semibold text-slate-900">Impact tracking</p>
+              <p class="text-sm text-slate-600">Monitor how much waste gets diverted and reused.</p>
+            </div>
+          </div>
+
+          <div class="mt-6 rounded-2xl bg-gradient-to-br from-emerald-50 to-sky-50 border border-emerald-100 p-5">
+            <p class="text-sm text-slate-500 mb-1 font-medium">Tip</p>
+            <p class="font-semibold text-slate-900">Clear images increase match accuracy.</p>
+            <p class="text-sm text-slate-600 mt-2">
+              Try a well-lit photo showing the full item and any damage or texture.
+            </p>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const cameraInput = document.getElementById("cameraInput");
+    const previewImg = document.getElementById("previewImg");
+    const uploadBox = document.getElementById("uploadBox");
+    const previewBox = document.getElementById("previewBox");
+    const resetBtn = document.getElementById("resetBtn");
+    const dropZone = document.getElementById("dropZone");
+
+    function showPreview(file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewImg.src = e.target.result;
+        uploadBox.classList.add("hidden");
+        previewBox.classList.remove("hidden");
+        previewBox.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      reader.readAsDataURL(file);
+    }
+
+    fileInput.addEventListener("change", e => {
+      if (e.target.files[0]) showPreview(e.target.files[0]);
+    });
+
+    cameraInput.addEventListener("change", e => {
+      if (e.target.files[0]) showPreview(e.target.files[0]);
+    });
+
+    resetBtn.addEventListener("click", () => {
+      uploadBox.classList.remove("hidden");
+      previewBox.classList.add("hidden");
+      previewImg.src = "";
+      fileInput.value = "";
+      cameraInput.value = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    dropZone.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropZone.classList.add("ring-4", "ring-emerald-100");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("ring-4", "ring-emerald-100");
+    });
+
+    dropZone.addEventListener("drop", e => {
+      e.preventDefault();
+      dropZone.classList.remove("ring-4", "ring-emerald-100");
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith("image/")) showPreview(file);
+    });
+
+    dropZone.addEventListener("click", () => fileInput.click());
+  </script>
+
+</body>
+</html>
