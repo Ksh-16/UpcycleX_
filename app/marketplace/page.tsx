@@ -2,36 +2,61 @@
 
 import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Search, SlidersHorizontal, X, Loader2 } from "lucide-react";
-import { ProductCard } from "@/components/product-card";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { products, categories } from "@/lib/data";
-import { cn } from "@/lib/utils";
+import { useCartStore } from "@/lib/store";
+import type { Product } from "@/lib/types";
 
-const priceRanges = [
-  { label: "All Prices", min: 0, max: Infinity },
-  { label: "Under 1,000", min: 0, max: 1000 },
-  { label: "1,000 - 3,000", min: 1000, max: 3000 },
-  { label: "3,000 - 7,000", min: 3000, max: 7000 },
-  { label: "Above 7,000", min: 7000, max: Infinity },
-];
+function ProductCard({ product }: { product: Product }) {
+  const addItem = useCartStore((state) => state.addItem);
 
-const sortOptions = [
-  { label: "Newest", value: "newest" },
-  { label: "Price: Low to High", value: "price-asc" },
-  { label: "Price: High to Low", value: "price-desc" },
-  { label: "Rating", value: "rating" },
-];
+  const handleAddToCart = () => {
+    addItem(product, 1);
+  };
+
+  return (
+    <div className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+      <div className="h-48 overflow-hidden relative">
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-cover"
+        />
+      </div>
+      <div className="p-4 flex flex-col flex-grow">
+        <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mb-2 w-fit">
+          {product.material}
+        </span>
+        <h3 className="font-semibold text-gray-800 mb-1">{product.name}</h3>
+        <p className="text-gray-600 text-sm mb-2 flex-grow">{product.description}</p>
+        <div className="flex items-center text-sm text-gray-500 mb-2">
+          <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          {product.sellerName}
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-lg font-bold text-green-600">Rs. {product.price}</span>
+          <button
+            onClick={handleAddToCart}
+            className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-green-700 transition"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function MarketplaceContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(categoryParam || "all");
-  const [selectedPriceRange, setSelectedPriceRange] = useState(0);
-  const [sortBy, setSortBy] = useState("newest");
-  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(categoryParam || "All Categories");
+  const [priceRange, setPriceRange] = useState("All");
 
   const filteredProducts = useMemo(() => {
     let filtered = [...products];
@@ -43,258 +68,117 @@ function MarketplaceContent() {
         (p) =>
           p.name.toLowerCase().includes(query) ||
           p.description.toLowerCase().includes(query) ||
-          p.material.toLowerCase().includes(query)
+          p.sellerName.toLowerCase().includes(query)
       );
     }
 
     // Category filter
-    if (selectedCategory !== "all") {
+    if (selectedCategory !== "All Categories") {
       filtered = filtered.filter((p) => p.category === selectedCategory);
     }
 
     // Price filter
-    const priceRange = priceRanges[selectedPriceRange];
-    filtered = filtered.filter(
-      (p) => p.price >= priceRange.min && p.price < priceRange.max
-    );
-
-    // Sort
-    switch (sortBy) {
-      case "price-asc":
-        filtered.sort((a, b) => a.price - b.price);
-        break;
-      case "price-desc":
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case "rating":
-        filtered.sort((a, b) => b.rating - a.rating);
-        break;
-      default:
-        filtered.sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
+    if (priceRange !== "All") {
+      if (priceRange === "Under Rs. 500") {
+        filtered = filtered.filter((p) => p.price < 500);
+      } else if (priceRange === "Rs. 500 - Rs. 1000") {
+        filtered = filtered.filter((p) => p.price >= 500 && p.price <= 1000);
+      } else if (priceRange === "Above Rs. 1000") {
+        filtered = filtered.filter((p) => p.price > 1000);
+      }
     }
 
     return filtered;
-  }, [searchQuery, selectedCategory, selectedPriceRange, sortBy]);
-
-  const clearFilters = () => {
-    setSearchQuery("");
-    setSelectedCategory("all");
-    setSelectedPriceRange(0);
-    setSortBy("newest");
-  };
-
-  const hasActiveFilters =
-    searchQuery || selectedCategory !== "all" || selectedPriceRange !== 0;
+  }, [searchQuery, selectedCategory, priceRange]);
 
   return (
-    <>
-      {/* Header */}
-      <div className="border-b bg-card px-4 py-8">
-        <div className="mx-auto max-w-7xl">
-          <h1 className="mb-2 text-3xl font-bold text-card-foreground">
-            Marketplace
-          </h1>
-          <p className="text-muted-foreground">
-            Discover unique upcycled products from talented makers
+    <section className="text-gray-600 body-font">
+      <div className="container px-5 py-16 mx-auto">
+        {/* Header */}
+        <div className="flex flex-wrap w-full mb-10">
+          <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Upcycled Marketplace</h1>
+            <div className="h-1 w-20 bg-green-500 rounded"></div>
+          </div>
+          <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
+            Browse unique, handcrafted items made from upcycled materials. Every purchase supports sustainable makers.
           </p>
         </div>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        {/* Search and Filters Bar */}
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+        {/* Filters */}
+        <div
+          className="bg-white rounded-xl p-6 mb-8 flex flex-wrap gap-4 items-center"
+          style={{
+            background: "linear-gradient(145deg,#17580eb9,#8cc8328b,#0b906f)",
+            boxShadow: "inset 0 6px 18px rgba(71, 30, 30, 0.6), inset 0 -6px 18px rgba(253, 24, 24, 0.08)",
+          }}
+        >
+          {/* Search */}
+          <div className="flex-1 min-w-[200px]">
             <input
               type="text"
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex h-11 w-full rounded-lg border border-input bg-background pl-10 pr-4 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-300 focus:outline-none"
             />
           </div>
-          <div className="flex items-center gap-3">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="h-11 rounded-lg border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              {sortOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <Button
-              variant="outline"
-              onClick={() => setShowFilters(!showFilters)}
-              className="lg:hidden"
-            >
-              <SlidersHorizontal className="h-4 w-4" />
-              Filters
-            </Button>
-          </div>
-        </div>
 
-        <div className="flex gap-8">
-          {/* Sidebar Filters - Desktop */}
-          <aside
-            className={cn(
-              "w-64 shrink-0 space-y-6",
-              showFilters
-                ? "fixed inset-0 z-50 block bg-background p-6 lg:static lg:p-0"
-                : "hidden lg:block"
-            )}
+          {/* Category */}
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-300 focus:outline-none"
           >
-            {showFilters && (
-              <div className="mb-4 flex items-center justify-between lg:hidden">
-                <h2 className="text-lg font-semibold">Filters</h2>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setShowFilters(false)}
-                >
-                  <X className="h-5 w-5" />
-                </Button>
-              </div>
-            )}
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
 
-            {/* Categories */}
-            <div className="space-y-3">
-              <h3 className="font-semibold text-foreground">Categories</h3>
-              <div className="space-y-2">
-                <button
-                  onClick={() => setSelectedCategory("all")}
-                  className={cn(
-                    "block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                    selectedCategory === "all"
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                  )}
-                >
-                  All Categories
-                </button>
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.slug)}
-                    className={cn(
-                      "block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                      selectedCategory === category.slug
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                    )}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Price Range */}
-            <div className="space-y-3">
-              <h3 className="font-semibold text-foreground">Price Range</h3>
-              <div className="space-y-2">
-                {priceRanges.map((range, index) => (
-                  <button
-                    key={range.label}
-                    onClick={() => setSelectedPriceRange(index)}
-                    className={cn(
-                      "block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                      selectedPriceRange === index
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                    )}
-                  >
-                    {range.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {hasActiveFilters && (
-              <Button
-                variant="outline"
-                onClick={clearFilters}
-                className="w-full"
-              >
-                Clear All Filters
-              </Button>
-            )}
-
-            {showFilters && (
-              <Button
-                onClick={() => setShowFilters(false)}
-                className="w-full lg:hidden"
-              >
-                Show {filteredProducts.length} Results
-              </Button>
-            )}
-          </aside>
-
-          {/* Products Grid */}
-          <div className="flex-1">
-            {/* Results count */}
-            <div className="mb-6 flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">
-                Showing {filteredProducts.length} products
-              </p>
-              {hasActiveFilters && (
-                <button
-                  onClick={clearFilters}
-                  className="text-sm font-medium text-primary hover:underline"
-                >
-                  Clear filters
-                </button>
-              )}
-            </div>
-
-            {filteredProducts.length > 0 ? (
-              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center rounded-xl border bg-card py-16 text-center">
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary">
-                  <Search className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-card-foreground">
-                  No products found
-                </h3>
-                <p className="mb-4 max-w-sm text-muted-foreground">
-                  Try adjusting your search or filter criteria to find what
-                  you&apos;re looking for.
-                </p>
-                <Button onClick={clearFilters}>Clear Filters</Button>
-              </div>
-            )}
-          </div>
+          {/* Price */}
+          <select
+            value={priceRange}
+            onChange={(e) => setPriceRange(e.target.value)}
+            className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-300 focus:outline-none"
+          >
+            <option value="All">All Prices</option>
+            <option value="Under Rs. 500">Under Rs. 500</option>
+            <option value="Rs. 500 - Rs. 1000">Rs. 500 - Rs. 1000</option>
+            <option value="Above Rs. 1000">Above Rs. 1000</option>
+          </select>
         </div>
-      </div>
-    </>
-  );
-}
 
-function MarketplaceLoading() {
-  return (
-    <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <p className="text-muted-foreground">Loading marketplace...</p>
+        {/* Products Grid */}
+        {filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">No products found</h3>
+            <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
+          </div>
+        )}
       </div>
-    </div>
+    </section>
   );
 }
 
 export default function MarketplacePage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Suspense fallback={<MarketplaceLoading />}>
+    <div className="min-h-screen bg-gray-50">
+      <Suspense fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
+        </div>
+      }>
         <MarketplaceContent />
       </Suspense>
     </div>

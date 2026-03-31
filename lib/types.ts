@@ -79,6 +79,9 @@ export interface Maker {
   yearsExperience: number;
   contactEmail: string;
   contactPhone?: string;
+  category?: string;
+  minQuantity?: string;
+  leadTime?: string;
 }
 
 export interface Category {

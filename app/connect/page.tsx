@@ -2,46 +2,11 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  Search,
-  MapPin,
-  Star,
-  Mail,
-  Phone,
-  Award,
-  Briefcase,
-  Filter,
-} from "lucide-react";
-import { makers } from "@/lib/data";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
-const specialties = [
-  "All Specialties",
-  "Textile Upcycling",
-  "Wood Reclamation",
-  "Glass Art",
-  "Metal Upcycling",
-  "Paper Crafts",
-  "Tire & Rubber Art",
-];
-
-const locations = [
-  "All Locations",
-  "Mumbai",
-  "Delhi",
-  "Jaipur",
-  "Pune",
-  "Ahmedabad",
-  "Kochi",
-];
+import { makers, makerCategories } from "@/lib/data";
 
 export default function ConnectPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedSpecialty, setSelectedSpecialty] = useState("All Specialties");
-  const [selectedLocation, setSelectedLocation] = useState("All Locations");
-  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const filteredMakers = useMemo(() => {
     return makers.filter((maker) => {
@@ -51,219 +16,144 @@ export default function ConnectPage() {
         const matchesSearch =
           maker.name.toLowerCase().includes(query) ||
           maker.specialty.toLowerCase().includes(query) ||
+          maker.location.toLowerCase().includes(query) ||
           maker.materialsUsed.some((m) => m.toLowerCase().includes(query));
         if (!matchesSearch) return false;
       }
 
-      // Specialty filter
-      if (
-        selectedSpecialty !== "All Specialties" &&
-        maker.specialty !== selectedSpecialty
-      ) {
-        return false;
-      }
-
-      // Location filter
-      if (
-        selectedLocation !== "All Locations" &&
-        !maker.location.includes(selectedLocation)
-      ) {
+      // Category filter
+      if (selectedCategory !== "All" && maker.category !== selectedCategory) {
         return false;
       }
 
       return true;
     });
-  }, [searchQuery, selectedSpecialty, selectedLocation]);
+  }, [searchQuery, selectedCategory]);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b bg-card px-4 py-8">
-        <div className="mx-auto max-w-7xl">
-          <h1 className="mb-2 text-3xl font-bold text-card-foreground">
-            Connect with Makers
-          </h1>
-          <p className="text-muted-foreground">
-            Find skilled artisans who can transform waste materials into beautiful
-            products
+    <section className="text-gray-600 body-font">
+      <div className="container px-5 py-24 mx-auto">
+        {/* Header */}
+        <div className="flex flex-wrap w-full mb-12">
+          <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Connect with Makers</h1>
+            <div className="h-1 w-20 bg-green-500 rounded"></div>
+          </div>
+          <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
+            Find skilled artisans who can transform your waste materials into beautiful, functional products.
           </p>
         </div>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        {/* Search & Filters */}
-        <div className="mb-8 space-y-4">
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Search makers by name, specialty, or materials..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex h-11 w-full rounded-lg border border-input bg-background pl-10 pr-4 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              />
-            </div>
-            <Button
-              variant="outline"
-              onClick={() => setShowFilters(!showFilters)}
-              className="sm:hidden"
-            >
-              <Filter className="mr-2 h-4 w-4" />
-              Filters
-            </Button>
-            <div className="hidden gap-3 sm:flex">
-              <select
-                value={selectedSpecialty}
-                onChange={(e) => setSelectedSpecialty(e.target.value)}
-                className="h-11 rounded-lg border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {specialties.map((specialty) => (
-                  <option key={specialty} value={specialty}>
-                    {specialty}
-                  </option>
-                ))}
-              </select>
-              <select
-                value={selectedLocation}
-                onChange={(e) => setSelectedLocation(e.target.value)}
-                className="h-11 rounded-lg border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {locations.map((location) => (
-                  <option key={location} value={location}>
-                    {location}
-                  </option>
-                ))}
-              </select>
-            </div>
+        {/* Filters */}
+        <div
+          className="rounded-xl p-6 mb-8 flex flex-wrap gap-4 items-center"
+          style={{
+            background: "linear-gradient(145deg,#17580eb9,#8cc8328b,#0b906f)",
+            boxShadow: "inset 0 6px 18px rgba(71, 30, 30, 0.6), inset 0 -6px 18px rgba(253, 24, 24, 0.08)",
+          }}
+        >
+          {/* Search */}
+          <div className="flex-1 min-w-[200px]">
+            <input
+              type="text"
+              placeholder="Search by skill, location, or name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-300 focus:outline-none"
+            />
           </div>
 
-          {/* Mobile Filters */}
-          {showFilters && (
-            <div className="flex gap-3 sm:hidden">
-              <select
-                value={selectedSpecialty}
-                onChange={(e) => setSelectedSpecialty(e.target.value)}
-                className="h-11 flex-1 rounded-lg border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {specialties.map((specialty) => (
-                  <option key={specialty} value={specialty}>
-                    {specialty}
-                  </option>
-                ))}
-              </select>
-              <select
-                value={selectedLocation}
-                onChange={(e) => setSelectedLocation(e.target.value)}
-                className="h-11 flex-1 rounded-lg border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {locations.map((location) => (
-                  <option key={location} value={location}>
-                    {location}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
+          {/* Category */}
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-300 focus:outline-none"
+          >
+            {makerCategories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
         </div>
-
-        {/* Results Count */}
-        <p className="mb-6 text-sm text-muted-foreground">
-          Showing {filteredMakers.length} makers
-        </p>
 
         {/* Makers Grid */}
         {filteredMakers.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredMakers.map((maker) => (
-              <div
-                key={maker.id}
-                className="group overflow-hidden rounded-xl border bg-card transition-shadow hover:shadow-lg"
-              >
-                {/* Header with Image */}
-                <div className="relative h-32 bg-gradient-to-br from-primary/20 to-primary/5">
+              <div key={maker.id} className="bg-white rounded-xl shadow-md overflow-hidden">
+                {/* Header with gradient */}
+                <div className="h-24 relative" style={{ background: "linear-gradient(to right, #10b981, #059669)" }}>
                   <div className="absolute -bottom-10 left-6">
-                    <div className="relative h-20 w-20 overflow-hidden rounded-xl border-4 border-card bg-secondary">
-                      <Image
-                        src={maker.image}
-                        alt={maker.name}
-                        fill
-                        className="object-cover"
-                      />
+                    <div className="relative w-20 h-20 rounded-full border-4 border-white overflow-hidden">
+                      <Image src={maker.image} alt={maker.name} fill className="object-cover" />
                     </div>
                   </div>
+                  <span className="absolute top-4 right-4 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                    {maker.category || maker.specialty}
+                  </span>
                 </div>
 
                 {/* Content */}
                 <div className="p-6 pt-14">
-                  <div className="mb-4">
-                    <h3 className="font-semibold text-card-foreground">
-                      {maker.name}
-                    </h3>
-                    <p className="text-sm text-primary">{maker.specialty}</p>
+                  <h3 className="font-semibold text-gray-900">{maker.name}</h3>
+                  <div className="flex items-center text-sm text-gray-500 mt-1">
+                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    {maker.location}
                   </div>
 
-                  <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <MapPin className="h-4 w-4" />
-                      <span>{maker.location.split(",")[0]}</span>
+                  {/* Rating */}
+                  <div className="flex items-center mt-2">
+                    <div className="flex text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <svg key={i} className={`w-4 h-4 ${i < Math.floor(maker.rating) ? "fill-current" : "text-gray-300"}`} viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                      ))}
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                      <span>{maker.rating}</span>
-                      <span>({maker.reviewCount})</span>
-                    </div>
+                    <span className="text-gray-500 text-sm ml-2">({maker.reviewCount} reviews)</span>
                   </div>
 
-                  <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
-                    {maker.bio}
-                  </p>
-
-                  {/* Stats */}
-                  <div className="mb-4 flex gap-4 border-t pt-4">
-                    <div className="flex items-center gap-2">
-                      <Award className="h-4 w-4 text-primary" />
-                      <span className="text-sm text-muted-foreground">
-                        {maker.yearsExperience}+ years
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Briefcase className="h-4 w-4 text-primary" />
-                      <span className="text-sm text-muted-foreground">
-                        {maker.productsCreated} products
-                      </span>
-                    </div>
-                  </div>
+                  <p className="text-gray-600 text-sm mt-3 line-clamp-2">{maker.bio}</p>
 
                   {/* Materials */}
-                  <div className="mb-4 flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mt-4">
                     {maker.materialsUsed.slice(0, 3).map((material) => (
-                      <span
-                        key={material}
-                        className="rounded-full bg-secondary px-2 py-1 text-xs text-secondary-foreground"
-                      >
+                      <span key={material} className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">
                         {material}
                       </span>
                     ))}
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex gap-3">
-                    <a
-                      href={`mailto:${maker.contactEmail}`}
-                      className="flex-1"
-                    >
-                      <Button variant="outline" className="w-full">
-                        <Mail className="mr-2 h-4 w-4" />
+                  {/* Details */}
+                  <div className="border-t mt-4 pt-4 grid grid-cols-2 gap-2 text-sm text-gray-500">
+                    <div>
+                      <span className="font-medium text-gray-700">Min. Qty:</span> {maker.minQuantity || "N/A"}
+                    </div>
+                    <div>
+                      <span className="font-medium text-gray-700">Lead Time:</span> {maker.leadTime || "N/A"}
+                    </div>
+                  </div>
+
+                  {/* Contact Buttons */}
+                  <div className="flex gap-3 mt-4">
+                    <a href={`mailto:${maker.contactEmail}`} className="flex-1">
+                      <button className="w-full flex items-center justify-center gap-2 border border-green-600 text-green-600 py-2 rounded-lg hover:bg-green-50 transition">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
                         Email
-                      </Button>
+                      </button>
                     </a>
                     {maker.contactPhone && (
                       <a href={`tel:${maker.contactPhone}`} className="flex-1">
-                        <Button className="w-full">
-                          <Phone className="mr-2 h-4 w-4" />
+                        <button className="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-2 rounded-lg hover:bg-green-500 transition">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                          </svg>
                           Call
-                        </Button>
+                        </button>
                       </a>
                     )}
                   </div>
@@ -272,42 +162,28 @@ export default function ConnectPage() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center rounded-xl border bg-card py-16 text-center">
-            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary">
-              <Search className="h-8 w-8 text-muted-foreground" />
+          <div className="text-center py-16">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
             </div>
-            <h3 className="mb-2 text-lg font-semibold text-card-foreground">
-              No makers found
-            </h3>
-            <p className="mb-4 max-w-sm text-muted-foreground">
-              Try adjusting your search or filter criteria to find makers.
-            </p>
-            <Button
-              onClick={() => {
-                setSearchQuery("");
-                setSelectedSpecialty("All Specialties");
-                setSelectedLocation("All Locations");
-              }}
-            >
-              Clear Filters
-            </Button>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">No makers found</h3>
+            <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
           </div>
         )}
 
         {/* CTA Section */}
-        <div className="mt-16 rounded-2xl bg-primary/10 p-8 text-center">
-          <h2 className="mb-2 text-2xl font-bold text-foreground">
-            Are You a Maker?
-          </h2>
-          <p className="mb-6 text-muted-foreground">
-            Join our community of skilled artisans and connect with people who
-            have materials for you to transform.
+        <div className="mt-16 rounded-2xl bg-green-50 p-8 text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Are You a Maker?</h2>
+          <p className="text-gray-600 mb-6">
+            Join our community of skilled artisans and connect with people who have materials for you to transform.
           </p>
-          <Link href="/signup">
-            <Button size="lg">Join as a Maker</Button>
-          </Link>
+          <button className="text-white bg-green-600 py-2 px-6 rounded-lg hover:bg-green-500 transition">
+            Join as a Maker
+          </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
